@@ -74,7 +74,6 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::post('admin/schedule', [ScheduleController::class, 'admin_schedule_update']);
     // Schedule End
 
-
     // Push Notification start
     Route::get('admin/notification', [NotificationController::class, 'notification_index']);
     Route::post('admin/notification_send', [NotificationController::class, 'notification_send']);
@@ -107,6 +106,9 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::get('admin/order', [OrderController::class, 'order_list']);
     Route::get('admin/order/add', [OrderController::class, 'order_add']);
     Route::post('admin/order/add', [OrderController::class, 'order_insert']);
+    Route::get('admin/order/edit/{id}', [OrderController::class, 'order_edit']);
+    Route::post('admin/order/edit/{id}', [OrderController::class, 'order_update']);
+    Route::get('admin/order/delete/{id}', [OrderController::class, 'order_delete']);
     // Order End
 
 });

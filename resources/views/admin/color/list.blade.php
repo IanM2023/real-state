@@ -70,6 +70,9 @@
                         </table>
                         <div style="padding: 20px; float: right;">
                             {{-- Pagination --}}
+                            <div class="mt-3 mb-2" style="float: right">
+                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                            </div>
                         </div>
                     </div>
                 </div>

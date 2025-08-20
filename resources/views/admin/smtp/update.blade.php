@@ -11,7 +11,6 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">SMTP Setting Update</h6>
-
                     <form class="forms-sample" method="post" action="{{ url('admin/smtp_update') }}" enctype="multipart/form-data">
                         @csrf
 

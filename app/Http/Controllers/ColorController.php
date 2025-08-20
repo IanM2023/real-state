@@ -9,7 +9,7 @@ class ColorController extends Controller
 {
     public function color_list(Request $request)
     {
-        $data['getRecord'] = Color::latest()->get();
+        $data['getRecord'] = Color::getColorList();
         return view('admin.color.list', $data);
     }
 

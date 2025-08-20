@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('s_m_t_p_s', function (Blueprint $table) {
+        Schema::create('smtps', function (Blueprint $table) {
             $table->id();
             $table->string('app_name')->nullable();
             $table->string('mail_mailer')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('s_m_t_p_s');
+        Schema::dropIfExists('smtp');
     }
 };

@@ -130,7 +130,7 @@ class AdminController extends Controller
             'phone'    => 'nullable|regex:/^\+?[0-9]+$/|max:20',
             'role'     => 'required|in:admin,user,agent',
             'status'   => 'required|in:active,inactive',
-        ]);
+        ]); 
     
         try {
             DB::beginTransaction();

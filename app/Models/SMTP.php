@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Schema;
 
-class SMTP extends Model
+class Smtp extends Model
 {
     use HasFactory, SoftDeletes;
-    
-    protected $table = 's_m_t_p_s';
+
+    protected $table = 'smtps';
 
     protected $fillable = [
+        'id',
         'app_name',
         'mail_mailer',
         'mail_host',
@@ -25,6 +27,22 @@ class SMTP extends Model
 
     static public function getSingleFirst()
     {
-        return self::find(1);
+        // Prevent query if table doesn't exist
+        if (!Schema::hasTable('Smtp')) {
+            return new self(); // return empty model instance
+        }
+    
+        $record = self::find(1);
+    
+        if (!$record) {
+            $record = self::create([
+                'app_name' => config('app.name'),
+            ]);
+        }
+    
+        return $record;
     }
+    
+
+
 }

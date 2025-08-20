@@ -45,12 +45,12 @@
 
                         <div class="d-flex align-items-center mb-4" style="gap: 10px;">
                             <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center mb-4" style="gap: 10px; flex-wrap: wrap;">
-                                <div class="d-flex align-items-center" style="gap: 10px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
                                     <label class="form-label mb-0">Start Date</label>
                                     <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
                                 </div>
                                 
-                                <div class="d-flex align-items-center" style="gap: 10px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
                                     <label class="form-label mb-0">End Date</label>
                                     <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
                                 </div>

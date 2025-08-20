@@ -14,5 +14,10 @@ class Color extends Model
 
     protected $fillable = ['color_name'];
 
+    public static function getColorList()
+    {
+        $query = self::select('*')->latest();
 
+        return $query->paginate(10);
+    }
 }

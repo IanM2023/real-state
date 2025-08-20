@@ -9,14 +9,14 @@ class SMTPController extends Controller
 {
     public function stmp_list(Request $request)
     {
-        $data['getRecord'] = SMTP::getSingleFirst();
+        $data['getRecord'] = Smtp::getSingleFirst();
         return view('admin.smtp.update', $data);
     }
 
     public function smtp_update(Request $request)
     {
-        // dd($request->all());
-        $save = SMTP::getSingleFirst();
+
+        $save = Smtp::getSingleFirst();
         $save->app_name = trim($request->app_name);
         $save->mail_mailer = trim($request->mail_mailer);
         $save->mail_host = trim($request->mail_host);
