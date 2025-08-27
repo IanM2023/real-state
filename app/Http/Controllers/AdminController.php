@@ -92,9 +92,9 @@ class AdminController extends Controller
     public function admin_users_list(Request $request)
     {
 
-        $search = $request->get('search'); // or just: request('search')
+        $search    = $request->get('search'); // or just: request('search')
         $startDate = $request->get('start_date'); // or just: request('search')
-        $endDate = $request->get('end_date'); // or just: request('search')
+        $endDate   = $request->get('end_date'); // or just: request('search')
         $data['getRecord']      = User::getRecord($search, $startDate, $endDate);
         $data['totalAdmin']     = (int) User::countBy('role', 'admin');
         $data['totalAgent']     = (int) User::countBy('role', 'agent');
@@ -130,6 +130,7 @@ class AdminController extends Controller
             'phone'    => 'nullable|regex:/^\+?[0-9]+$/|max:20',
             'role'     => 'required|in:admin,user,agent',
             'status'   => 'required|in:active,inactive',
+            'photo'    => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // validation for photo
         ]); 
     
         try {
@@ -143,6 +144,15 @@ class AdminController extends Controller
             $save->role     = trim($validated['role']);
             $save->status   = trim($validated['status']);
             $save->remember_token = Str::random(50);
+
+            if(!empty($request->file('photo'))) {
+                $file = $request->file('photo');
+                $randomStr = Str::random(30);
+                $fileName = $randomStr . '.' . $file->getClientOriginalExtension();
+                $file->move('upload', $fileName);
+                $save->photo = $fileName;
+            }
+
             $save->save();
 
             Mail::to($save->email)->send(new RegisteredMail($save));
@@ -174,7 +184,7 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $user = User::where('remember_token', '=', $token);
-            if($user->count() == 0) 
+            if($user->count() == 0)
             {
                 abort(403);
             }
@@ -202,17 +212,42 @@ class AdminController extends Controller
 
     public function admin_add_users_edit_id_update($id, Request $request)
     {
-        $save = User::findOrFail($id);
-        $save->name     = trim($request['name']);
-        $save->username = trim($request['username']);
-        $save->email    = trim($request['email']);
-        $save->phone    = trim($request['phone'] ?? '');
-        $save->role     = trim($request['role']);
-        $save->status   = trim($request['status']);
-        $save->save();
+        $validated = $request->validate([
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:20',
+            'role' => 'required|string',
+            'status' => 'required|string',
+        ]);
+    
+        $user = User::findOrFail($id);
+        $user->name     = trim($request->name);
+        $user->username = trim($request->username);
+        $user->email    = trim($request->email);
+        $user->phone    = trim($request->phone ?? '');
+        $user->role     = trim($request->role);
+        $user->status   = trim($request->status);
+    
+        if ($request->hasFile('photo')) {
 
+        // Delete old photo if it exists
+        if (!empty($user->photo) && file_exists(public_path('upload/' . $user->photo))) {
+            unlink(public_path('upload/' . $user->photo));
+        }
+
+            $file = $request->file('photo');
+            $fileName = Str::random(30) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload'), $fileName);
+            $user->photo = $fileName;
+        }
+    
+        $user->save();
+    
         return redirect('admin/users')->with('success', 'User info updated Successfully');
     }
+    
 
     public function admin_delete_soft($id)
     {

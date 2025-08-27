@@ -30,6 +30,7 @@ class User extends Authenticatable
         'role',
         'status',
         'token',
+        'remember_token',
     ];
 
     /**
@@ -80,13 +81,27 @@ class User extends Authenticatable
             $query->whereDate('created_at', '<=', date('Y-m-d', strtotime($endDate)));
         }
     
-        return $query->paginate(10);
+        return $query->paginate(8);
     }
     
 
     public static function countBy($column, $value)
     {
         return self::where($column, $value)->count();
+    }
+
+
+    public function getFile()
+    {
+        if(!empty($this->photo) && file_exists('upload/'. $this->photo))
+        {
+
+            return url('upload/' .$this->photo);
+
+        } else {
+
+            return url('upload/default_image.jpg');
+        }
     }
     
     

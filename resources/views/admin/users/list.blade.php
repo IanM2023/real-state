@@ -1,4 +1,9 @@
 @extends('admin.admin_dashboard')
+
+
+{{-- @section('style')
+    <style type="text/css">    </style>
+@endsection --}}
 @section('admin')
 <div class="page-content">
     @include('_message')
@@ -89,7 +94,9 @@
                                         <td>{{ $user->email }}</td>
                                         <td class="text-center">
                                             @if (!empty($user->photo))
-                                                <img src="{{ asset('upload/' . $user->photo) }}" alt="User Photo" class="wd-30 ht-30 rounded-circle">
+                                                <a href="{{ asset('upload/' . $user->photo) }}" data-lightbox="example-set">
+                                                    <img src="{{ $user->getFile() }}" alt="User Photo" class="wd-30 ht-30 rounded-circle">
+                                                </a>
                                             @else
                                                 {{ 'N/A' }}
                                             @endif
@@ -176,5 +183,6 @@
 </div>
 
 @endsection
+
 
 

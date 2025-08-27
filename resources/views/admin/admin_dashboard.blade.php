@@ -30,11 +30,15 @@
 	<link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
 	<!-- endinject -->
 
-  <!-- Layout styles -->  
+  <!-- Layout styles -->
 	<link rel="stylesheet" href="{{ asset('assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
 
   <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tinymce@7.2.1/skins/ui/oxide/content.min.css" rel="stylesheet">
+
+  {{-- @yield('style') --}}
 </head>
 <body>
 	<div class="main-wrapper">
@@ -77,8 +81,13 @@
   <script src="{{ asset('assets/js/dashboard-dark.js') }}"></script>
 	<!-- End custom js for this page -->
 
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.1/tinymce.min.js"></script>
+
 	@yield('script')
 	<script type="text/javascript">
+
 
 	</script>
 @yield('script')

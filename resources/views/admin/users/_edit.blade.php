@@ -11,7 +11,7 @@
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">User Info</h6>
-                <form class="forms-sample" method="POST" action="{{ url('admin/users/edit/' . $getRecord->id) }}">
+                <form class="forms-sample" method="POST" action="{{ url('admin/users/edit/' . $getRecord->id) }} " enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Name <span style="color: red;"> *</span></label>
@@ -34,6 +34,21 @@
                             {{-- <span style="color: red;">{{ $errors->first('email') }}</span> --}}
                         </div>
                     </div>
+                    <div class="row mb-3 align-items-center">
+                        <label class="col-sm-3 col-form-label">Photo <span style="color: red;">*</span></label>
+                        <div class="col-sm-9 d-flex align-items-center">
+                            <input type="file" name="photo" class="form-control me-3" placeholder="Photo">
+                            {{-- @dd($getRecord->photo) --}}
+                            <img src="{{ $getRecord->getFile()}}"
+                                 alt="User Photo"
+                                 class="wd-50 ht-50 rounded-circle border">
+                        </div>
+                        <div class="col-sm-12 mt-1">
+                            <span style="color: red;">{{ $errors->first('photo') }}</span>
+                        </div>
+                    </div>
+                    
+                    
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Phone # <span style="color: red;"> *</span></label>
                         <div class="col-sm-9">

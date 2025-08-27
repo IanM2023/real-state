@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NotificationController;
@@ -110,6 +111,14 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::post('admin/order/edit/{id}', [OrderController::class, 'order_update']);
     Route::get('admin/order/delete/{id}', [OrderController::class, 'order_delete']);
     // Order End
+
+    //Blog Start
+    Route::get('admin/blog', [BlogController::class, 'blog_list']);
+    Route::get('admin/blog/add', [BlogController::class, 'blog_add']);
+    Route::post('admin/blog/add', [BlogController::class, 'blog_store']);
+
+
+    //Blog ENd
 
 });
 

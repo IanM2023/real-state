@@ -34,7 +34,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Description <span style="color: red;"> *</span></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="description" placeholder="Enter Description" ></textarea>
+                            <textarea class="form-control editor" name="description" placeholder="Enter Description" ></textarea>
                             <span style="color: red;">{{ $errors->first('description') }}</span>
                         </div>
                     </div>

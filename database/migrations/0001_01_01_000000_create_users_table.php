@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('website', 255)->nullable(); // or more if needed
-            $table->string('token');
+            $table->string('token')->nullable();
             $table->text('about')->nullable(); // better than string for descriptions
             $table->enum('role', ['admin', 'agent', 'user'])->default('user');
             $table->enum('status', ['active', 'inactive'])->default('active');

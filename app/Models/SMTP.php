@@ -28,7 +28,7 @@ class Smtp extends Model
     static public function getSingleFirst()
     {
         // Prevent query if table doesn't exist
-        if (!Schema::hasTable('Smtp')) {
+        if (Schema::hasTable('Smtp')) {
             return new self(); // return empty model instance
         }
     
