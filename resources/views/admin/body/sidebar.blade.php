@@ -67,6 +67,22 @@
             <span class="link-title">Schedule</span>
             </a>
         </li>
+
+        {{-- Address --}}
+        <li class="nav-item nav-category">Address</li>
+        <li class="nav-item @if(Request::segment(2) == 'countries') active @endif">
+            <a href="{{ url('admin/countries') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Countries</span>
+            </a>
+        </li>
+
+        <li class="nav-item @if(Request::segment(2) == 'state') active @endif">
+            <a href="{{ url('admin/state') }}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">State</span>
+            </a>
+        </li>
         
         <li class="nav-item nav-category">Notification</li>
         <li class="nav-item @if(Request::segment(2) == 'notification') active @endif">

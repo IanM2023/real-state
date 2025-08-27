@@ -4,8 +4,8 @@
     @include('_message')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href='color'>Color</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Color list</li>
+            <li class="breadcrumb-item"><a href='blog'>State</a></li>
+            <li class="breadcrumb-item active" aria-current="page">State list</li>
         </ol>
     </nav>
     <div class="row">
@@ -13,11 +13,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <h4 class="card-title">Color List</h4>
+                        <h4 class="card-title">State List</h4>
                         <div class="d-flex align-items-center mb-4" style="gap: 10px;">
-                            <a href="{{ url('admin/pdf_color') }}" class="btn btn-sm btn-info">PDF Color</a>
-                            <a href="{{ url('admin/pdf_demo') }}" class="btn btn-sm btn-secondary">PDF Demo</a>
-                            <a href="{{ url('admin/color/add') }}" class="btn btn-sm btn-success">Add Color</a>
+                            <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center mb-4" style="gap: 10px; flex-wrap: wrap;">
+                                {{-- <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search blog..." value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-sm btn-primary">Search Blog</button>
+                                <a href="{{ url('admin/blog') }}" class="btn btn-sm btn-danger">Reset</a> --}}
+                                <a href="{{ url('admin/countries/add') }}" class="btn btn-sm btn-success">Add New State</a>
+                            </form>
                         </div>
                     </div>
 
@@ -26,19 +29,22 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Color Name</th>
+                                    <th>Country Name</th>
+                                    <th>State Name</th>
                                     <th>Date Created</th>
                                     <th colspan="2" class="text-center" style="width: 150px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                              
                                 @forelse($getRecord as $value)
                                 <tr>
                                     <td>{{ $value->id }}</td>
-                                    <td>{{ $value->color_name }}</td>
+                                    <td> {{ $value->country->country_name }}</td>
+                                    <td>{{ $value->state_name }}</td>
                                     <td> {{ $value->created_at->format('F j, Y') }}</td>
                                     <td class="text-center" style="width: 50px;">
-                                        <a href="{{ url('admin/color/edit/' . $value->id) }}" class="dropdown-item align-items-center">
+                                        <a href="{{ url('admin/countries/edit/' . $value->id) }}" class="dropdown-item align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -48,9 +54,21 @@
                                             <span>Edit</span>
                                         </a>
                                     </td>
+                                    {{-- <td class="text-center" style="width: 50px;">
+                                        <a href="{{ url('admin/countries/view/' . $value->id) }}" class="dropdown-item align-items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-eye icon-sm me-2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                            </svg>
+                                            <span>View</span>
+                                        </a>
+                                    </td> --}}
                                     <td class="text-center" style="width: 50px;">
-                                        <a href="{{ url('admin/color/delete/' . $value->id) }}"
-                                            onclick="return confirm('Are you sure you want to delete this color?');"
+                                        <a href="{{ url('admin/countries/delete/' . $value->id) }}"
+                                            onclick="return confirm('Are you sure you want to delete this countries?');"
                                             class="dropdown-item align-items-center">
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -72,9 +90,9 @@
                         </table>
                         <div style="padding: 20px; float: right;">
                             {{-- Pagination --}}
-                            <div class="mt-3 mb-2" style="float: right">
+                            {{-- <div class="mt-3 mb-2" style="float: right">
                                 {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

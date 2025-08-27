@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
@@ -116,9 +117,29 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::get('admin/blog', [BlogController::class, 'blog_list']);
     Route::get('admin/blog/add', [BlogController::class, 'blog_add']);
     Route::post('admin/blog/add', [BlogController::class, 'blog_store']);
-
-
+    Route::get('admin/blog/edit/{id}', [BlogController::class, 'blog_edit']);
+    Route::get('admin/blog/view/{id}', [BlogController::class, 'blog_view']);
+    Route::post('admin/blog/edit/{id}', [BlogController::class, 'blog_update']);
+    Route::get('admin/blog/delete/{id}', [BlogController::class, 'blog_delete']);
     //Blog ENd
+
+    // Pdf start
+    Route::get('admin/pdf_demo', [ColorController::class, 'color_pdf_demo']);
+    Route::get('admin/pdf_color', [ColorController::class, 'color_pdf_color']);
+    // Pdf end
+
+    //Country Start
+    Route::get('admin/countries', [LocationController::class, 'country_list']);
+    Route::get('admin/countries/add', [LocationController::class, 'country_add']);
+    Route::post('admin/countries/add', [LocationController::class, 'country_store']);
+    Route::get('admin/countries/edit/{id}', [LocationController::class, 'country_edit']);
+    Route::post('admin/countries/edit/{id}', [LocationController::class, 'country_update']);
+    Route::get('admin/countries/delete/{id}', [LocationController::class, 'country_delete']);
+
+    Route::get('admin/state', [LocationController::class, 'state_list']);
+    Route::get('admin/state/add', [LocationController::class, 'state_add']);
+    Route::post('admin/state/add', [LocationController::class, 'state_store']);
+    //Country End
 
 });
 

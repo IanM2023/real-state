@@ -5,45 +5,51 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ url('admin/blog') }}">Blog</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Blog</li>
+            <li class="breadcrumb-item active" aria-current="page">View Blog</li>
         </ol>
     </nav>
-    <div class="col-md-9 grid-margin stretch-card">
+    <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h6 class="card-title">Add Blog</h6>
-                <form class="forms-sample" method="POST" action="{{ url('admin/blog/add') }}">
+                <form class="forms-sample" method="" action="">
                     @csrf
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Id <span style="color: red;"> *</span></label>
+                        <div class="col-sm-9">
+                            {{ $getRecord->id }}
+                        </div>
+                    </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Title <span style="color: red;"> *</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="title" class="form-control" placeholder="Enter Title Name" required id="getTitle">
-                            <span style="color: red;">{{ $errors->first('title') }}</span>
+                            {{ $getRecord->title }}
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
-                        <label class="col-sm-3 col-form-label">
-                            Slug <span style="color: red;"> *</span>
-                            <a href="javascript:;" id="ConvertSlug">Convert Slug</a>
-                        </label>
+                        <label class="col-sm-3 col-form-label">Slug <span style="color: red;"> *</span></label>
                         <div class="col-sm-9">
-                            <input type="text" name="slug" class="form-control" placeholder="Enter Slug Name" required id="getSlug">
-                            <span style="color: red;">{{ $errors->first('slug') }}</span>
+                            {{ $getRecord->slug }}
                         </div>
                     </div>
-                    
 
                     <div class="row mb-3">
                         <label class="col-sm-3 col-form-label">Description <span style="color: red;"> *</span></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control editor" name="description" placeholder="Enter Description" ></textarea>
-                            <span style="color: red;">{{ $errors->first('description') }}</span>
+                            {!! $getRecord->description !!}
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label">Created At <span style="color: red;"> *</span></label>
+                        <div class="col-sm-9">
+                            {{ $getRecord->created_at->format('F j, Y') }}
+                        </div>
+                    </div>
+                    
                     <a href="{{ url('admin/blog') }}" class="btn btn-secondary">Back</a>
                 </form>
             </div>
@@ -52,7 +58,7 @@
 </div>
 @endsection
 
-@section('script')
+{{-- @section('script')
     <script type="text/javascript">
         	  tinymce.init({
                 selector: '.editor', // your textarea selector
@@ -95,4 +101,4 @@
             });
 
     </script>
-@endsection
+@endsection --}}

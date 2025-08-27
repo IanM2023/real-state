@@ -71,7 +71,7 @@
   <script src="{{ asset('assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
   <script src="{{ asset('assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
 	<!-- End plugin js for this page -->
-
+s
 	<!-- inject:js -->
 	<script src="{{ asset('assets/vendors/feather-icons/feather.min.js') }}"></script>
 	<script src="{{ asset('assets/js/template.js') }}"></script>
@@ -83,7 +83,17 @@
 
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.1/tinymce.min.js"></script>
+
+	<!-- PrismJS JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+		integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer">
+	</script> --}}
+
 
 	@yield('script')
 	<script type="text/javascript">

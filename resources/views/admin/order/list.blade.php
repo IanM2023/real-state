@@ -24,7 +24,7 @@
                                     <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
                                     <label class="form-label mb-0">End Date</label>
                                 </div>
-                                <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search users..." value="{{ request('search') }}">
+                                <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search order..." value="{{ request('search') }}">
                                 
                                 <button type="submit" class="btn btn-sm btn-primary">Search</button>
                                 <a href="{{ url('admin/order') }}" class="btn btn-sm btn-secondary">Cancel</a>
