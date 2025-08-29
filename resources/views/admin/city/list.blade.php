@@ -4,8 +4,8 @@
     @include('_message')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href='blog'>State</a></li>
-            <li class="breadcrumb-item active" aria-current="page">State list</li>
+            <li class="breadcrumb-item"><a href='blog'>City</a></li>
+            <li class="breadcrumb-item active" aria-current="page">City list</li>
         </ol>
     </nav>
     <div class="row">
@@ -13,13 +13,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <h4 class="card-title">State List</h4>
+                        <h4 class="card-title">City List</h4>
                         <div class="d-flex align-items-center mb-4" style="gap: 10px;">
                             <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center mb-4" style="gap: 10px; flex-wrap: wrap;">
-                                {{-- <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search blog..." value="{{ request('search') }}">
-                                <button type="submit" class="btn btn-sm btn-primary">Search Blog</button>
-                                <a href="{{ url('admin/blog') }}" class="btn btn-sm btn-danger">Reset</a> --}}
-                                <a href="{{ url('admin/state/add') }}" class="btn btn-sm btn-success">Add New State</a>
+                                <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search address..." value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-sm btn-primary">Search Address</button>
+                                <a href="{{ url('admin/city') }}" class="btn btn-sm btn-danger">Reset</a>
+                                <a href="{{ url('admin/city/add') }}" class="btn btn-sm btn-success">Add New City</a>
                             </form>
                         </div>
                     </div>
@@ -31,20 +31,22 @@
                                     <th>#</th>
                                     <th>Country Name</th>
                                     <th>State Name</th>
+                                    <th>City Name</th>
                                     <th>Date Created</th>
                                     <th colspan="2" class="text-center" style="width: 150px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              
-                                @forelse($getRecord as $value)
+               
+                                @forelse($getCity as $value)
                                 <tr>
                                     <td>{{ $value->id }}</td>
-                                    <td> {{ $value->country->country_name }}</td>
-                                    <td>{{ $value->state_name }}</td>
-                                    <td> {{ $value->created_at->format('F j, Y') }}</td>
+                                    <td>{{ $value->country->country_name }}</td>
+                                    <td>{{ $value->state->state_name }}</td>
+                                    <td>{{ $value->city_name }}</td>
+                                    <td>{{ $value->created_at->format('F j, Y') }}</td>
                                     <td class="text-center" style="width: 50px;">
-                                        <a href="{{ url('admin/state/edit/' . $value->id) }}" class="dropdown-item align-items-center">
+                                        <a href="{{ url('admin/city/edit/' . $value->id) }}" class="dropdown-item align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -55,7 +57,7 @@
                                         </a>
                                     </td>
                                     {{-- <td class="text-center" style="width: 50px;">
-                                        <a href="{{ url('admin/state/view/' . $value->id) }}" class="dropdown-item align-items-center">
+                                        <a href="{{ url('admin/city/view/' . $value->id) }}" class="dropdown-item align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -67,8 +69,8 @@
                                         </a>
                                     </td> --}}
                                     <td class="text-center" style="width: 50px;">
-                                        <a href="{{ url('admin/state/delete/' . $value->id) }}"
-                                            onclick="return confirm('Are you sure you want to delete this state?');"
+                                        <a href="{{ url('admin/city/delete/' . $value->id) }}"
+                                            onclick="return confirm('Are you sure you want to delete this city?');"
                                             class="dropdown-item align-items-center">
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -91,7 +93,7 @@
                         <div style="padding: 20px; float: right;">
                             {{-- Pagination --}}
                             <div class="mt-3 mb-2" style="float: right">
-                                {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                                {!! $getCity->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                             </div>
                         </div>
                     </div>

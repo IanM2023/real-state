@@ -139,6 +139,17 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::get('admin/state', [LocationController::class, 'state_list']);
     Route::get('admin/state/add', [LocationController::class, 'state_add']);
     Route::post('admin/state/add', [LocationController::class, 'state_store']);
+    Route::get('admin/state/edit/{id}', [LocationController::class, 'state_edit']);
+    Route::post('admin/state/edit/{id}', [LocationController::class, 'state_update']);
+    Route::get('admin/state/delete/{id}', [LocationController::class, 'state_delete']);
+
+    Route::get('admin/city', [LocationController::class, 'city_list']);
+    Route::get('admin/city/add', [LocationController::class, 'city_add']);
+    Route::get('get-states-record/{countryId}', [LocationController::class, 'get_state_name']);
+    Route::post('admin/city/add', [LocationController::class, 'city_store']);
+    Route::get('admin/city/edit/{id}', [LocationController::class, 'city_edit']);
+    Route::post('admin/city/edit/{id}', [LocationController::class, 'city_update']);
+    Route::get('admin/city/delete/{id}', [LocationController::class, 'city_delete']);
     //Country End
 
 });

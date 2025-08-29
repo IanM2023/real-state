@@ -102,5 +102,30 @@ s
 	</script>
 @yield('script')
 @stack('scripts')
+
+<script type="text/javascript">
+
+	$('#country').on('change', function() {
+        var countryId = this.value;
+        $('#state').html('');
+
+        var url = "{{ url('get-states-record/') }}/" + countryId;
+        console.log(url);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+                // $('#state').html('<option value="">Select State</option>');
+                $.each(data, function(key, value) {
+                    console.log(value.state_name);
+                    $('#state').append('<option value="' + value.id + '">' + value.state_name + '</option>');
+                });
+            }
+        });
+    });
+
+</script>
+
 </body>
 </html>

@@ -19,7 +19,9 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="product_id">
                                 <option value="">Select Product</option>
+                     
                                 @foreach ($getProduct as  $va_pro)
+                             
                                     <option {{ ($getRecord->product_id == $va_pro->id) ? 'selected' : '' }} value="{{ $va_pro->id }}">
                                         {{ $va_pro->title }}
                                     </option>

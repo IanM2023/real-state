@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LocationController extends Controller
 {
@@ -61,7 +63,7 @@ class LocationController extends Controller
 
     public function state_list()
     {
-        $data['getRecord'] = State::with('country')->get();
+        $data['getRecord'] = State::getAllRecord(['country']);
         return view('admin.state.list', $data);
     }
 
@@ -84,6 +86,114 @@ class LocationController extends Controller
         $state->state_name =  trim($validated['state_name']);
         $state->save();
 
+        return redirect('admin/state')->with('success', 'State store successfully!');
+    }
+
+    public function state_edit($id)
+    {
+        $data['getState'] = State::findOrFail($id);
+        $data['getRecord'] = Country::get();
+        return view('admin.state.edit', $data);
+    }
+
+    public function state_update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'countries_id' => 'required',
+            'state_name' => 'required|string|max:255',
+        ]);
+
+        $getState = State::findOrFail($id);
+        $getState->countries_id = trim($validated['countries_id']);
+        $getState->state_name = trim($validated['state_name']);
+        $getState->save();
+
         return redirect('admin/state')->with('success', 'State updated successfully!');
     }
+
+    public function state_delete($id)
+    {
+        $getState = State::findOrFail($id);
+        $getState->delete();
+
+        return redirect('admin/state')->with('success', 'State deleted successfully!');
+    }
+
+    public function city_list(Request $request)
+    {
+        $search = $request->get('search');
+        $data['getCity'] = City::getAllRecord(['state', 'country'], $search);
+        return view('admin.city.list', $data);
+    }
+
+    public function city_add()
+    {
+        $stateCountryID = State::pluck('countries_id');
+        $data['getCountries'] = Country::whereIn('id', $stateCountryID)->get();
+        return view('admin.city.add', $data);
+    }
+
+    public function get_state_name($countryId, Request $request)
+    {
+        
+        $states = State::where('countries_id', $countryId)->get();
+        return response()->json($states);
+    }
+
+    public function city_store(Request $request)
+    {
+        $validated = $request->validate([
+            'countries_id' => 'required',
+            'state_id' => 'required',
+            'city_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('cities', 'city_name')->whereNull('deleted_at')
+            ],
+        ]);
+
+        $city = new City();
+        $city->countries_id = trim($validated['countries_id']);
+        $city->state_id     = trim($validated['state_id']);
+        $city->city_name    = trim($validated['city_name']);
+        $city->save();
+
+        return redirect('admin/city')->with('success', 'City created successfully!');
+    }
+
+    public function city_edit($id)
+    {
+        $data['getCity'] = City::with(['state.country'])->findOrFail($id);
+        $stateCountryID = State::pluck('countries_id');
+        $data['getCountries'] = Country::whereIn('id', $stateCountryID)->get();
+        $data['getStates'] = State::where('countries_id', $data['getCity']->state->countries_id)->get();
+        return view('admin.city.edit', $data);
+    }
+
+    public function city_update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'countries_id' => 'required',
+            'state_id' => 'required',
+            'city_name' => 'required|string|max:255',
+        ]);
+
+        $city = City::findOrFail($id);
+        $city->countries_id = trim($validated['countries_id']);
+        $city->state_id     = trim($validated['state_id']);
+        $city->city_name    = trim($validated['city_name']);
+        $city->save();
+
+        return redirect('admin/city')->with('success', 'City updated successfully!');
+    }
+
+    public function city_delete($id)
+    {
+        $city = City::findOrFail($id);
+        $city->delete();
+
+        return redirect('admin/city')->with('success', 'City deleted successfully!');
+    }
+
 }
