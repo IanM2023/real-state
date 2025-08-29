@@ -150,6 +150,11 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::get('admin/city/edit/{id}', [LocationController::class, 'city_edit']);
     Route::post('admin/city/edit/{id}', [LocationController::class, 'city_update']);
     Route::get('admin/city/delete/{id}', [LocationController::class, 'city_delete']);
+
+    Route::get('admin/address', [LocationController::class, 'address_list']);
+    Route::get('admin/address/add', [LocationController::class, 'address_add']);
+    Route::get('get-states/{countryId}', [LocationController::class, 'get_states']);
+    Route::get('get-cities/{stateId}', [LocationController::class, 'get_cities']);
     //Country End
 
 });

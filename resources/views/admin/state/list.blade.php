@@ -33,6 +33,7 @@
                                     <th>State Name</th>
                                     <th>Date Created</th>
                                     <th colspan="2" class="text-center" style="width: 150px;">Action</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>

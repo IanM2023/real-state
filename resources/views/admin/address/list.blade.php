@@ -4,8 +4,8 @@
     @include('_message')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href='blog'>City</a></li>
-            <li class="breadcrumb-item active" aria-current="page">City list</li>
+            <li class="breadcrumb-item"><a href='blog'>Address</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Address list</li>
         </ol>
     </nav>
     <div class="row">
@@ -13,13 +13,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <h4 class="card-title">City List</h4>
+                        <h4 class="card-title">Address List</h4>
                         <div class="d-flex align-items-center mb-4" style="gap: 10px;">
                             <form method="GET" action="{{ url()->current() }}" class="d-flex align-items-center mb-4" style="gap: 10px; flex-wrap: wrap;">
                                 <input type="text" name="search" class="form-control form-control-sm" style="width: 300px;" placeholder="Search address..." value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-sm btn-primary">Search Address</button>
-                                <a href="{{ url('admin/city') }}" class="btn btn-sm btn-danger">Reset</a>
-                                <a href="{{ url('admin/city/add') }}" class="btn btn-sm btn-success">Add New City</a>
+                                <a href="{{ url('admin/address') }}" class="btn btn-sm btn-danger">Reset</a>
+                                <a href="{{ url('admin/address/add') }}" class="btn btn-sm btn-success">Add New Address</a>
                             </form>
                         </div>
                     </div>
@@ -29,9 +29,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Country Name</th>
-                                    <th>State Name</th>
-                                    <th>City Name</th>
+                                    <th>Country </th>
+                                    <th>State </th>
+                                    <th>City </th>
+                                    <th>Address </th>
                                     <th>Date Created</th>
                                     <th colspan="2" class="text-center" style="width: 150px;">Action</th>
                                     {{-- <th>Action</th> --}}
@@ -39,7 +40,7 @@
                             </thead>
                             <tbody>
                
-                                @forelse($getCity as $value)
+                                {{-- @forelse($getCity as $value)
                                 <tr>
                                     <td>{{ $value->id }}</td>
                                     <td>{{ $value->country->country_name }}</td>
@@ -57,7 +58,7 @@
                                             <span>Edit</span>
                                         </a>
                                     </td>
-                                    {{-- <td class="text-center" style="width: 50px;">
+                                    <td class="text-center" style="width: 50px;">
                                         <a href="{{ url('admin/city/view/' . $value->id) }}" class="dropdown-item align-items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -68,7 +69,7 @@
                                             </svg>
                                             <span>View</span>
                                         </a>
-                                    </td> --}}
+                                    </td>
                                     <td class="text-center" style="width: 50px;">
                                         <a href="{{ url('admin/city/delete/' . $value->id) }}"
                                             onclick="return confirm('Are you sure you want to delete this city?');"
@@ -88,14 +89,14 @@
                                     <tr>
                                         <td colspan="100%" class="text-center py-4">No Record Found.</td>
                                     </tr>
-                                @endforelse
+                                @endforelse --}}
                             </tbody>
                         </table>
                         <div style="padding: 20px; float: right;">
                             {{-- Pagination --}}
-                            <div class="mt-3 mb-2" style="float: right">
+                            {{-- <div class="mt-3 mb-2" style="float: right">
                                 {!! $getCity->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

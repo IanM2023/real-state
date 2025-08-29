@@ -55,11 +55,20 @@ class LocationController extends Controller
 
     public function country_delete($id)
     {
-        $data = Country::findOrFail($id);
-        $data->delete();
+        $country = Country::findOrFail($id);
+        $states = State::where('countries_id',$country->id)->get();
+        foreach($states as $state) {
+            foreach($state->cities as $city) {
+                $city->delete();
+            }
+            $state->delete();
+        }
+        $country->delete();
 
-        return redirect('admin/countries')->with('success', 'Country deleted successfully!');
+        return redirect('admin/countries')
+        ->with('success', 'Country and related states & cities deleted successfully!');
     }
+    
 
     public function state_list()
     {
@@ -194,6 +203,32 @@ class LocationController extends Controller
         $city->delete();
 
         return redirect('admin/city')->with('success', 'City deleted successfully!');
+    }
+
+    public function address_list()
+    {
+        return view('admin.address.list');
+    }
+
+    public function address_add()
+    {
+        $stateCountryID = State::pluck('countries_id');
+        $data['getCountries'] = Country::whereIn('id', $stateCountryID)->get();
+        return view('admin.address.add', $data);
+    }
+
+    public function get_states($id)
+    {
+        
+        $states = State::where('countries_id', $id)->get();
+        return response()->json($states);
+    }
+
+    public function get_cities($id)
+    {
+        
+        $cities = City::where('state_id', $id)->get();
+        return response()->json($cities);
     }
 
 }

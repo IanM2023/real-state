@@ -124,7 +124,49 @@ s
             }
         });
     });
+</script>
 
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#country_v').on('change', function() {
+			var countryId = this.value;
+			// $('#state_v').html('');
+			$('#city_v').html('<option value="">Select City</option');
+
+			var url = "{{ url('get-states') }}/" + countryId;
+			console.log(url);
+			$.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+					$('#state_v').html('<option value="">Select State</option>');
+					$.each(data, function(key, value) {
+						console.log(value.state_name);
+						$('#state_v').append('<option value="' + value.id + '">' + value.state_name + '</option>');
+					});
+				}
+			});
+		});
+
+		$('#state_v').on('change', function() {
+			var stateID = this.value;
+			// $('#city_v').html('');
+			var url = "{{ url('get-cities') }}/" + stateID;
+			console.log(url);
+			$.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+					$('#city_v').html('<option value="">Select City</option');
+					$.each(data, function(key, value) {
+						console.log(value.city_name);
+						$('#city_v').append('<option value="' + value.id + '">' + value.city_name + '</option>');
+					});
+				}
+			});
+		});
+	});
 </script>
 
 </body>
